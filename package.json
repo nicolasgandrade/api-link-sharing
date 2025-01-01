@@ -2,10 +2,10 @@
   "name": "api-link-sharing",
   "version": "1.0.0",
   "description": "",
-  "main": "src/main/server.ts",
+  "main": "src/server.ts",
   "scripts": {
-    "dev": "tsx watch src/main/server.ts",
-    "start": "tsc && node dist/main/server.js"
+    "dev": "tsx watch src/server.ts",
+    "start": "tsc && node dist/server.js"
   },
   "keywords": [],
   "author": "",
