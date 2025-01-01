@@ -2,13 +2,13 @@ import { LinkButton } from './link-button';
 import { PageData } from './page-data';
 
 export class Page {
-  private id: string;
-  private pictureUrl: string;
-  private title: string;
-  private subtitle: string;
-  private bgColor: string;
-  private textColor: string;
-  private linkButtons: LinkButton[];
+  readonly id: string;
+  readonly pictureUrl: string;
+  readonly title: string;
+  readonly subtitle: string;
+  readonly bgColor: string;
+  readonly textColor: string;
+  readonly linkButtons: LinkButton[];
 
   constructor(pageData: PageData) {
     this.id = pageData.id;

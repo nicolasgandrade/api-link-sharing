@@ -11,4 +11,8 @@ export class InMemoryPageRepository implements PageRepository {
 
     return Promise.resolve(newPage);
   }
+
+  getById(id: string): Promise<Page | undefined> {
+    return Promise.resolve(this.pages.find((page) => page.id === id));
+  }
 }

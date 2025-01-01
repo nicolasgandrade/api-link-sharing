@@ -5,6 +5,7 @@ export const adaptRoute = (fn: any) => {
   return async (req: Request, res: Response) => {
     const httpRequest: HttpRequest = {
       body: req.body,
+      params: req.params,
     };
     const httpResponse: HttpResponse = await fn(httpRequest);
 

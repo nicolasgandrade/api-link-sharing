@@ -13,3 +13,8 @@ export const ok = (data: any): HttpResponse => ({
 export const noContent = (): HttpResponse => ({
   statusCode: 204,
 });
+
+export const notFound = (error: Error): HttpResponse => ({
+  statusCode: 404,
+  body: { message: error.message },
+});
