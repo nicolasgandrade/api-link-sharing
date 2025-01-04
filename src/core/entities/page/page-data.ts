@@ -1,4 +1,4 @@
-import { LinkButton } from './link-button';
+import { LinkButton } from '../link-button/link-button';
 
 export interface PageData {
   id: string;

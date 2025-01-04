@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { LinkButtonEntity } from './entities/link-button.entity';
 import { PageEntity } from './entities/page.entity';
 
 export const AppDataSource = new DataSource({
@@ -8,7 +9,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: 'link-sharing',
-  entities: [PageEntity],
+  entities: [PageEntity, LinkButtonEntity],
   synchronize: true,
   logging: false,
 });
