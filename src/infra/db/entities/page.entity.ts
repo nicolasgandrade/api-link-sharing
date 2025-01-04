@@ -33,6 +33,7 @@ export const PageEntity = new EntitySchema<PageEntityData>({
       type: 'one-to-many',
       target: 'LinkButton',
       inverseSide: 'page',
+      cascade: true,
     },
   },
 });
