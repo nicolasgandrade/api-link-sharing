@@ -2,6 +2,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { auth } from 'express-oauth2-jwt-bearer';
+import 'reflect-metadata';
 import router from './infra/router';
 
 dotenv.config();
