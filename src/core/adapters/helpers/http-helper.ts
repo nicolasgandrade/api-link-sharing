@@ -1,7 +1,7 @@
 import { HttpResponse } from '../ports/http';
 
 export const badRequest = (error: Error): HttpResponse => ({
-  statusCode: 409,
+  statusCode: 400,
   body: { message: error.message },
 });
 

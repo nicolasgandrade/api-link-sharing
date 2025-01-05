@@ -7,9 +7,9 @@ import { HttpRequest, HttpResponse } from '../../core/adapters/ports/http';
 import { isPageRequestValid } from '../../core/entities/page/validators/is-page-request-valid.validator';
 import CreatePageUseCase from '../../core/usecases/create-page.usecase';
 import { GetPageByIdUseCase } from '../../core/usecases/get-page-by-id.usecase';
-import { InMemoryPageRepository } from '../repositories/in-memory-page.repository';
+import { PostgresPageRepository } from '../repositories/postgres-page.repository';
 
-const pageRepository = new InMemoryPageRepository();
+const pageRepository = new PostgresPageRepository();
 
 const createPageUsecase = new CreatePageUseCase(pageRepository);
 const getPageByIdUseCase = new GetPageByIdUseCase(pageRepository);
