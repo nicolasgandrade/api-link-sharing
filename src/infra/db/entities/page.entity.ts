@@ -40,4 +40,11 @@ export const PageEntity = new EntitySchema<PageEntityData>({
       cascade: true,
     },
   },
+  indices: [
+    {
+      name: 'IDX_PAGE_SLUG',
+      unique: true,
+      columns: ['slug'],
+    },
+  ],
 });
