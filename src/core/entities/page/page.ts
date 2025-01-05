@@ -3,6 +3,7 @@ import { PageData } from './page-data';
 
 export class Page {
   readonly id: string;
+  readonly slug: string;
   readonly pictureUrl: string;
   readonly title: string;
   readonly subtitle: string;
@@ -12,6 +13,7 @@ export class Page {
 
   constructor(pageData: PageData) {
     this.id = pageData.id;
+    this.slug = pageData.slug;
     this.pictureUrl = pageData.pictureUrl;
     this.title = pageData.title;
     this.subtitle = pageData.subtitle;

@@ -6,6 +6,7 @@ export const isPageRequestValid = (
   requestBody: any
 ): Either<InvalidPageRequest, Omit<Page, 'id'>> => {
   if (
+    !requestBody?.slug ||
     !requestBody?.pictureUrl ||
     !requestBody?.title ||
     !requestBody?.subtitle ||

@@ -12,6 +12,10 @@ export const PageEntity = new EntitySchema<PageEntityData>({
       primary: true,
       generated: 'uuid',
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     title: {
       type: String,
     },
