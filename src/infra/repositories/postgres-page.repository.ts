@@ -18,4 +18,8 @@ export class PostgresPageRepository implements PageRepository {
   getById(id: string): Promise<Page | null> {
     return this.db.findOne({ where: { id } });
   }
+
+  getByUserId(userId: string): Promise<Page | null> {
+    return this.db.findOne({ where: { creatorId: userId } });
+  }
 }

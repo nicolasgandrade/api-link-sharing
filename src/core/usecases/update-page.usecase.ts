@@ -23,9 +23,9 @@ export class UpdatePageUseCase {
     }
 
     const updatePayload: PageData = {
+      ...pageData,
       id: pageId,
       creatorId: userId,
-      ...pageData,
     };
     const updatedPage = await this.pageRepo.update(updatePayload);
 
