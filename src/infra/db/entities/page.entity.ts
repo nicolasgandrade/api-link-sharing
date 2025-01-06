@@ -12,6 +12,10 @@ export const PageEntity = new EntitySchema<PageEntityData>({
       primary: true,
       generated: 'uuid',
     },
+    creatorId: {
+      type: String,
+      unique: true,
+    },
     slug: {
       type: String,
       unique: true,
@@ -45,6 +49,11 @@ export const PageEntity = new EntitySchema<PageEntityData>({
       name: 'IDX_PAGE_SLUG',
       unique: true,
       columns: ['slug'],
+    },
+    {
+      name: 'IDX_PAGE_CREATOR',
+      unique: true,
+      columns: ['creatorId'],
     },
   ],
 });

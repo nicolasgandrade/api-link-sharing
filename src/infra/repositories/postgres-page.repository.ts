@@ -10,5 +10,12 @@ export class PostgresPageRepository implements PageRepository {
   add(page: Omit<PageData, 'id'>): Promise<Page> {
     return this.db.save(page);
   }
-  getById: (id: string) => Promise<Page | undefined>;
+
+  update(page: PageData): Promise<Page> {
+    return this.db.save(page);
+  }
+
+  getById(id: string): Promise<Page | null> {
+    return this.db.findOne({ where: { id } });
+  }
 }
