@@ -10,6 +10,7 @@ import CreatePageUseCase from '../../core/usecases/create-page.usecase';
 import { GetPageByIdUseCase } from '../../core/usecases/get-page-by-id.usecase';
 import { GetPageByUserUseCase } from '../../core/usecases/get-user-page.usecase';
 import { UpdatePageUseCase } from '../../core/usecases/update-page.usecase';
+import { defaultPageData } from '../../core/utils/default-page-data';
 import { getUserIdFromHeaders } from '../adapters/helpers/get-user-id-from-headers';
 import { PostgresPageRepository } from '../repositories/postgres-page.repository';
 
@@ -58,11 +59,18 @@ export const updatePageById = async (
 export const getPageByUser = async (
   req: HttpRequest
 ): Promise<HttpResponse> => {
-  const userId = getUserIdFromHeaders(req.headers);
-  const pageOrNull = await getPageByUserUsecase.execute(userId);
+  const requesterId = getUserIdFromHeaders(req.headers);
+  const userIdParam = req.params.userId;
+  if (requesterId !== userIdParam) {
+    return forbidden({ name: 'Forbidden', message: 'Forbidden' });
+  }
 
+  const pageOrNull = await getPageByUserUsecase.execute(requesterId);
   if (!pageOrNull) {
-    return notFound({ name: 'Page not found', message: 'Page not found' });
+    const newPage = await createPageUsecase.execute(
+      defaultPageData(requesterId)
+    );
+    return ok(newPage);
   }
 
   return ok(pageOrNull);

@@ -9,7 +9,7 @@ import {
 
 export default (router: Router) => {
   router.post('/pages', adaptRoute(createPage));
-  router.get('/pages/mine', adaptRoute(getPageByUser));
+  router.get('/users/:userId/page', adaptRoute(getPageByUser));
   router.get('/pages/:id', adaptRoute(getPageById));
   router.put('/pages/:id', adaptRoute(updatePageById));
 };

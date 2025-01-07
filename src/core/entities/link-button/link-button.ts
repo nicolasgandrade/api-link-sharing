@@ -1,7 +1,7 @@
 import { Page } from '../page/page';
 
 export interface LinkButton {
-  id: string;
+  id?: string;
   label: string;
   url: string;
   textColor: string;
