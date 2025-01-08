@@ -12,12 +12,17 @@ import { GetPageByUserUseCase } from '../../core/usecases/get-user-page.usecase'
 import { UpdatePageUseCase } from '../../core/usecases/update-page.usecase';
 import { defaultPageData } from '../../core/utils/default-page-data';
 import { getUserIdFromHeaders } from '../adapters/helpers/get-user-id-from-headers';
+import { PostgresLinkButtonRepository } from '../repositories/postgres-link-button.repository';
 import { PostgresPageRepository } from '../repositories/postgres-page.repository';
 
 const pageRepository = new PostgresPageRepository();
+const linkBtnRepository = new PostgresLinkButtonRepository();
 
 const createPageUsecase = new CreatePageUseCase(pageRepository);
-const updatePageUsecase = new UpdatePageUseCase(pageRepository);
+const updatePageUsecase = new UpdatePageUseCase(
+  pageRepository,
+  linkBtnRepository
+);
 const getPageByIdUseCase = new GetPageByIdUseCase(pageRepository);
 const getPageByUserUsecase = new GetPageByUserUseCase(pageRepository);
 
