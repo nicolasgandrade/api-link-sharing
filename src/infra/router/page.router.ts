@@ -4,12 +4,12 @@ import {
   createPage,
   getPageById,
   getPageByUser,
-  updatePageById,
+  updatePageByUser,
 } from '../controllers/page.controller';
 
 export default (router: Router) => {
-  router.post('/pages', adaptRoute(createPage));
+  router.post('/users/:userId/page', adaptRoute(createPage));
   router.get('/users/:userId/page', adaptRoute(getPageByUser));
+  router.put('/users/:userId/page', adaptRoute(updatePageByUser));
   router.get('/pages/:id', adaptRoute(getPageById));
-  router.put('/pages/:id', adaptRoute(updatePageById));
 };

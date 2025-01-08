@@ -36,7 +36,7 @@ export const createPage = async (req: HttpRequest): Promise<HttpResponse> => {
   return ok(createdPage);
 };
 
-export const updatePageById = async (
+export const updatePageByUser = async (
   req: HttpRequest
 ): Promise<HttpResponse> => {
   const pageOrError = isPageRequestValid(req.body);
@@ -45,10 +45,12 @@ export const updatePageById = async (
   }
 
   const requesterId = getUserIdFromHeaders(req.headers);
-  const pageId = req.params?.id;
+  const userIdParam = req.params?.userId;
+  if (requesterId !== userIdParam) {
+    return forbidden({ name: 'Forbidden', message: 'Forbidden' });
+  }
 
-  const result = await updatePageUsecase.execute(pageId, requesterId, req.body);
-
+  const result = await updatePageUsecase.execute(requesterId, req.body);
   if (result.isLeft()) {
     return forbidden(result.value);
   }

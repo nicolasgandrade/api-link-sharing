@@ -11,11 +11,10 @@ export class UpdatePageUseCase {
   }
 
   async execute(
-    pageId: string,
     userId: string,
     pageData: PageData
   ): Promise<Either<Error, Page>> {
-    const existingPage = await this.pageRepo.getById(pageId);
+    const existingPage = await this.pageRepo.getByUserId(userId);
     const isUserCreator = existingPage?.creatorId === userId;
 
     if (!isUserCreator) {
@@ -24,8 +23,8 @@ export class UpdatePageUseCase {
 
     const updatePayload: PageData = {
       ...pageData,
-      id: pageId,
-      creatorId: userId,
+      id: existingPage.id,
+      creatorId: existingPage.creatorId,
     };
     const updatedPage = await this.pageRepo.update(updatePayload);
 
