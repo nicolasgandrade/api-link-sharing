@@ -6,4 +6,5 @@ export default interface PageRepository {
   update: (page: PageData) => Promise<Page>;
   getById: (id: string) => Promise<Page | null>;
   getByUserId: (userId: string) => Promise<Page | null>;
+  getPageBySlug: (slug: string) => Promise<Page | null>;
 }

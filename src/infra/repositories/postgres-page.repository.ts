@@ -25,4 +25,10 @@ export class PostgresPageRepository implements PageRepository {
       relations: { linkButtons: true },
     });
   }
+
+  getPageBySlug(slug: string): Promise<Page | null> {
+    return this.db.findOne({
+      where: { slug },
+    });
+  }
 }
