@@ -91,7 +91,11 @@ export const getPageBySlug = async (
     return badRequest({ name: 'Bad Request', message: 'Slug cannot be null' });
   }
 
-  const pageOrNull = await getPageBySlugUseCase.execute(req.body?.slug);
+  const userId = getUserIdFromHeaders(req.headers);
+  const pageOrNull = await getPageBySlugUseCase.execute(
+    req.params.slug,
+    userId
+  );
 
   if (!pageOrNull) {
     return notFound({ name: 'Not Found', message: 'Page not found' });

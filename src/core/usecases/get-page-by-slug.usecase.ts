@@ -9,10 +9,12 @@ export class GetPageBySlug {
     this.pageRepo = pageRepo;
   }
 
-  async execute(slug: string): Promise<Page> {
+  async execute(slug: string, userId: string): Promise<Page> {
     const retrieved = await this.pageRepo.getPageBySlug(slug);
-    const finalObject: PageData = { ...retrieved, creatorId: null };
+    const creatorId =
+      userId === retrieved?.creatorId ? retrieved?.creatorId : null;
+    const finalObject: PageData = { ...retrieved, creatorId };
 
-    return finalObject;
+    return retrieved ? finalObject : null;
   }
 }
