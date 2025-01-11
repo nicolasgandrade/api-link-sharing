@@ -1,9 +1,11 @@
 import cors from 'cors';
 import express from 'express';
+import { engine } from 'express-handlebars';
 import { auth } from 'express-oauth2-jwt-bearer';
 import 'reflect-metadata';
 import { AppDataSource } from './infra/db/datasource';
 import router from './infra/router';
+import ssrRouter from './ssr/router';
 
 const PORT = 3000;
 const HOST = '0.0.0.0';
@@ -17,13 +19,19 @@ const jwtCheck = auth({
 });
 
 app.use(cors({ origin: ['http://localhost:4200'] }));
-app.use(jwtCheck);
+app.use('/api', jwtCheck);
 app.use(express.json());
 
-app.use('/api', router());
+app.set('views', __dirname + '/ssr/views');
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+
 app.get('/ping', (_, res) => {
   res.send('pong');
 });
+
+app.use('/api', router());
+app.use('', ssrRouter());
 
 AppDataSource.initialize()
   .then(async () => {
