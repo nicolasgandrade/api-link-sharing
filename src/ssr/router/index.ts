@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import { getSSRPage } from '../controllers/page-ssr.controller';
+import { PostgresPageRepository } from '../../infra/repositories/postgres-page.repository';
 
 const router = Router();
+const pageRepository = new PostgresPageRepository();
 
 export default (): Router => {
   router.get('/:slug', async (req, res) => {
     const { slug } = req.params;
 
-    const page = await getSSRPage(slug);
+    const page = await pageRepository.getPageBySlug(slug);
     if (!page) {
       res.status(404).send('Page not found');
       return;
