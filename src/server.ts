@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import { engine } from 'express-handlebars';
 import { auth } from 'express-oauth2-jwt-bearer';
+import path from 'path';
 import 'reflect-metadata';
 import { AppDataSource } from './infra/db/datasource';
 import router from './infra/router';
@@ -25,6 +26,7 @@ app.use(express.json());
 app.set('views', __dirname + '/ssr/views');
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/ping', (_, res) => {
   res.send('pong');

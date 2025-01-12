@@ -1,6 +1,25 @@
-<h1>
-  {{title}}
-</h1>
-<p>
-  {{subtitle}}
-</p>
+<div class='content-wrapper'>
+  <img src='{{pictureUrl}}' class='profile-pic' />
+
+  <div style='margin-top: 12px; color: {{textColor}}'>
+    <h1 style='font-size: 24px;'>
+      {{title}}
+    </h1>
+    <p>
+      {{subtitle}}
+    </p>
+  </div>
+
+  <div class='buttons-list'>
+    {{#each linkButtons}}
+      <a
+        class='buttons-list__item'
+        style='color: {{textColor}}; background-color: {{bgColor}};'
+        target='_blank'
+        href='{{url}}'
+      >
+        {{label}}
+      </a>
+    {{/each}}
+  </div>
+</div>
