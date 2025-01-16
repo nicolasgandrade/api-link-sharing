@@ -2,16 +2,16 @@ services:
   app:
     container_name: ls-app
     build: .
-    ports: 
-      - "3000:3000"
+    ports:
+      - '3000:3000'
     depends_on:
       - postgres
-  
+
   postgres:
     container_name: ls-postgres
     image: postgres:17.2-alpine
     environment:
-      POSTGRES_USER: ${DB_USER}
+      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./data/db:/var/lib/postgresql/data
