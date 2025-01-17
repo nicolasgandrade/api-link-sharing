@@ -1,13 +1,12 @@
 services:
   app:
-    container_name: ls-app-prod
+    container_name: ls-app
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
       - '3000:3000'
     environment:
-      - NODE_ENV=${NODE_ENV}
       - CLIENT_ORIGIN_URL=${CLIENT_ORIGIN_URL}
       - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
       - AUTH0_DOMAIN=${AUTH0_DOMAIN}
@@ -21,7 +20,7 @@ services:
       - postgres
 
   postgres:
-    container_name: ls-postgres-prod
+    container_name: ls-postgres
     image: postgres:17.2-alpine
     environment:
       POSTGRES_USER: ${DB_USERNAME}
@@ -30,12 +29,3 @@ services:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
-
-  pgAdmin:
-    container_name: ls-pgAdmin
-    image: dpage/pgadmin4
-    ports:
-      - '1532:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}

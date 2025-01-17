@@ -7,6 +7,10 @@ RUN npm install
 
 COPY . .
 
+RUN npm run compile
+
+RUN rm -rf src
+
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "dist/server.js"]
