@@ -3,6 +3,10 @@ import { PageData } from '../../core/entities/page/page-data';
 import PageRepository from '../../core/repositories/page-repository';
 
 export class InMemoryPageRepository implements PageRepository {
+  update: (page: PageData) => Promise<Page>;
+  getByUserId: (userId: string) => Promise<Page | null>;
+
+  getPageBySlug: (slug: string) => Promise<Page | null>;
   pages: Page[] = [];
 
   add(page: Omit<PageData, 'id'>): Promise<Page> {
