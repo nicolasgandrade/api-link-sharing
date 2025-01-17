@@ -41,5 +41,20 @@ jobs:
           docker pull nicolasgandrade/api-link-sharing:latest
           cd /var/www/api-link-sharing
           docker compose down
-          docker compose -e CLIENT_ORIGIN_URL=${{ secrets.CLIENT_ORIGIN_URL }} -e AUTH0_AUDIENCE=${{ secrets.AUTH0_AUDIENCE }} -e AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }} -e AUTH0_ISSUER=${{ secrets.AUTH0_ISSUER }} -e AUTH0_TOKEN_ALG=${{ secrets.AUTH0_TOKEN_ALG }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_PORT=${{ secrets.DB_PORT }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e PGADMIN_EMAIL=${{ secrets.PGADMIN_EMAIL }} -e PGADMIN_PASSWORD=${{ secrets.PGADMIN_PASSWORD }} up -d --build
+
+          echo "CLIENT_ORIGIN_URL=${{ secrets.CLIENT_ORIGIN_URL }}" > .env
+          echo "AUTH0_AUDIENCE=${{ secrets.AUTH0_AUDIENCE }}" >> .env
+          echo "AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }}" >> .env
+          echo "AUTH0_ISSUER=${{ secrets.AUTH0_ISSUER }}" >> .env
+          echo "AUTH0_TOKEN_ALG=${{ secrets.AUTH0_TOKEN_ALG }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "PGADMIN_EMAIL=${{ secrets.PGADMIN_EMAIL }}" >> .env
+          echo "PGADMIN_PASSWORD=${{ secrets.PGADMIN_PASSWORD }}" >> .env
+
+          docker compose --env-file .env up -d --build
+
+          rm -f .env
           EOF
