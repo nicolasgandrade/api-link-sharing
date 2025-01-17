@@ -26,13 +26,4 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
-      - 5432:5432
-
-  pgAdmin:
-    container_name: ls-pgAdmin
-    image: dpage/pgadmin4
-    ports:
-      - '1532:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - ${DB_PORT}:5432
