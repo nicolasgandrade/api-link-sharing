@@ -1,0 +1,45 @@
+name: Deploy to VPS based in Releases
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            nicolasgandrade/api-link-sharing:${{ github.ref_name }}
+            nicolasgandrade/api-link-sharing:latest
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} <<EOF
+          docker pull nicolasgandrade/api-link-sharing:latest
+          cd /var/www/api-link-sharing
+          docker compose down
+          docker compose -e CLIENT_ORIGIN_URL=${{ secrets.CLIENT_ORIGIN_URL }} -e AUTH0_AUDIENCE=${{ secrets.AUTH0_AUDIENCE }} -e AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }} -e AUTH0_ISSUER=${{ secrets.AUTH0_ISSUER }} -e AUTH0_TOKEN_ALG=${{ secrets.AUTH0_TOKEN_ALG }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_PORT=${{ secrets.DB_PORT }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e PGADMIN_EMAIL=${{ secrets.PGADMIN_EMAIL }} -e PGADMIN_PASSWORD=${{ secrets.PGADMIN_PASSWORD }} up -d --build
+          EOF
