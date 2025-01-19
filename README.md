@@ -14,8 +14,8 @@ Run `docker compose --env-file .env -f docker-compose.dev.yml up` command. This 
 
 ## Endpoints
 
-GET / POST / PUT Pages by the user's ID. <br />
-These endpoints will retrive, create or update pages based in the user id. <br />
+GET / PUT Pages by the user's ID. <br />
+These endpoints will retrive and update pages based in the user id. <br />
 `/user/:userId/page`
 
 GET <br />

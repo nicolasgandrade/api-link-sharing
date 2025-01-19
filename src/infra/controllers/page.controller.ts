@@ -26,21 +26,6 @@ const updatePageUsecase = new UpdatePageUseCase(
 const getPageByUserUsecase = new GetPageByUserUseCase(pageRepository);
 const getPageBySlugUseCase = new GetPageBySlug(pageRepository);
 
-export const createPage = async (req: HttpRequest): Promise<HttpResponse> => {
-  const pageOrError = isPageRequestValid(req.body);
-  if (pageOrError.isLeft()) {
-    return badRequest(pageOrError.value);
-  }
-
-  const userId = getUserIdFromHeaders(req.headers);
-  const createdPage = await createPageUsecase.execute({
-    ...req.body,
-    creatorId: userId,
-  });
-
-  return ok(createdPage);
-};
-
 export const updatePageByUser = async (
   req: HttpRequest
 ): Promise<HttpResponse> => {
