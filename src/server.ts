@@ -19,7 +19,15 @@ const jwtCheck = auth({
   tokenSigningAlg: process.env.AUTH0_TOKEN_ALG,
 });
 
-app.use(cors({ origin: ['http://localhost:4200'] }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:4200',
+      'https://nicolasgandrade.github.io',
+      'https://app-enderlinks.nicolasgandrade.com',
+    ],
+  })
+);
 app.use('/api', jwtCheck);
 app.use(express.json());
 
